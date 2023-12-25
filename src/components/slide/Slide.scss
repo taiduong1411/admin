@@ -1,0 +1,49 @@
+.slide {
+    display: flex;
+    justify-content: center;
+    padding: 100px 0px;
+    
+    .container {
+      width: 1400px;
+      position: relative;
+      margin-left: 100px;
+      
+      p {
+        /* Thêm CSS cho phần tử p */
+        display: flex;
+        font-size: 35px;
+        font-weight: bold;
+        color: #ffffff;
+        margin-bottom: 50px;
+        margin-left: 300px;
+        display: inline-block; // Để phần tử có kích thước chính xác với nội dung bên trong
+        background: #0007db; // Màu xanh
+        padding: 20px; // Kích thước padding
+        border-radius: 50px; // Để tạo góc bo cho background hình vuông
+        align-items: center;
+        text-align: center; // Để căn giữa theo chiều ngang
+      }
+    }
+  
+    .carousel-initialized {
+      position: static;
+    }
+  
+    .carousel-prev,
+    .carousel-next {
+      width: 50px;
+      height: 50px;
+      background-color: rgb(243, 243, 243);
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+  
+    .carousel-prev {
+      left: -25px;
+    }
+    
+    
+  }

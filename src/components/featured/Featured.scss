@@ -1,0 +1,111 @@
+.featured{
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    background-color: #222222;
+    color: white;
+
+    .container{
+        width: 1400px;
+        display: flex;
+        align-items: center;
+
+        .left{
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+            h1{
+                font-size: 50px;
+            }
+            .search{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-color: white;
+                border-radius: 5px;
+                .searchInput{ //text trong khung tìm kiếm
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    img{
+                        width: 20px;
+                        height: 20px;
+                        margin: 10px;
+                    }
+
+                    input{
+                        border: none;
+                        outline: none;
+                    }
+
+                }
+
+                button{ //style cho button search
+                    width: 120px;
+                    height: 50px;
+                    border: none;
+                    background-color: #0007db;
+                    border-radius: 5px;
+                    color: white;
+                    cursor: pointer;
+                    transition: transform 0.2s, box-shadow 0.2s;
+                }
+                button:hover {
+                    background-color: #2480ff; /* Màu nền khi hover */
+                    box-shadow: 4px 4px 8px #c5c5c51f, -4px -4px 8px #ffffff13; /* Hiệu ứng box-shadow khi hover */
+                }
+            }
+
+            .popular{ //style cho đoạn gợi ý bên dưới
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                span{}
+                button {
+                    color: white;
+                    background-color: transparent;
+                    border: 1px solid white;
+                    padding: 5px 10px;
+                    border-radius: 20px;
+                    font-size: 14px;
+                    cursor: pointer;
+                    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+                }
+                
+                button:hover {
+                    color: #ffffff; /* Màu chữ khi hover */
+                    background-color: #0007db; /* Màu nền khi hover */
+                    border-color: #0007db; /* Màu viền khi hover */
+                }
+                
+            }
+        }
+        .right{
+            height: 100%;
+
+            img {
+                height: 100%;
+                object-fit: contain;
+                animation: float 2s ease-in-out infinite;
+            }
+            
+            @keyframes float {
+                0% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-10px); /* Hình ảnh lơ lửng lên khi đạt tới 50% của animation */
+                }
+                100% {
+                    transform: translateY(0);
+                }
+            }
+            
+        }
+
+        
+    }
+}

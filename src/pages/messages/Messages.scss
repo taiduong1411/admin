@@ -1,0 +1,56 @@
+.messages{
+    display: flex;
+    justify-content: center;
+    .container{
+        width: 1400px;
+        padding: 50px 0px;
+
+        .title{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        table{
+            width: 100%;
+
+            tr{
+                height: 100px;
+
+                th{
+                    text-align: left;
+                }
+
+                td{
+                    padding: 10px;
+
+                        &:first-child{
+                            font-weight: 500;
+                        }
+
+                        &:nth-child(2),
+                        &:nth-child(3){
+                            color: gray;
+                        }
+                }
+
+                button{
+                    background-color: #0007db;
+                    color: white;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    transition: background-color 0.2s;
+                }
+                button:hover {
+                    background-color: #011f4b; /* Màu nền khi hover */
+                }
+
+                &.active{
+                    background-color: #1aa06117;
+                }
+            }
+        }
+    }
+}

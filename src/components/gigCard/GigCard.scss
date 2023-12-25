@@ -1,0 +1,102 @@
+.gigCard{
+    width: 324px;
+    height: 455px;
+    border: 1px solid rgb(236, 236, 236);
+    margin-bottom: 25px;
+    border-radius: 32px;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+
+    img{
+        width: 100%;
+        height: 50%;
+        object-fit: cover;
+        border-radius: 30px 30px 0px 0px;
+    }
+
+    .info{
+        padding: 10px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .user{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+
+            img{
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+            }
+        }
+        .title{
+            
+            color: #111;
+            font-weight: bold; /* Thêm thuộc tính này để làm đậm font chữ */
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Số dòng tối đa */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+              
+        
+        .desc{
+            color: #111;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Số dòng tối đa */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .star{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            img{
+                width: 14px;
+                height: 14px;
+            }
+
+            span{
+                font-size: 14px;
+                font-weight: bold;
+                color: #ffc108;
+            }
+        }
+
+    }
+
+    hr{
+        height: 0;
+        border: 0.5px solid rgb(236, 236, 236);
+    }
+    .details{
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        img{
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .price{
+            span{
+                color: #999;
+                font-size: 12px;
+            }
+            h2{
+                color: #0007db;
+                font-size: 18px;
+                font-weight: 400;
+            }
+        }
+    }
+}

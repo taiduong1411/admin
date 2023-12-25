@@ -1,0 +1,68 @@
+.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 50px;
+  
+    form {
+      width: 400px;
+      padding: 50px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      border: 1px solid #ccc; /* Thêm viền cho form */
+      border-radius: 30px; /* Để bo tròn góc của form */
+  
+      h1 {
+        color: #0007db;
+        margin-bottom: 20px;
+        font-weight: 800px;
+        text-align: center; /* Đưa phần tử h1 ra giữa chiều ngang */
+      }
+  
+      label {
+        color: gray;
+        font-size: 18px;
+      }
+  
+      input,
+      textarea {
+        padding: 20px;
+        border: 1px solid rgb(216, 214, 214);
+        border-radius: 20px;
+      }
+  
+      button {
+        border: none;
+        border-radius: 50px;
+        padding: 20px;
+        color: white;
+        font-weight: 500;
+        font-size: 18px;
+        background-color: #0007db;
+        cursor: pointer;
+        transition: transform 0.5s; /* Thêm hiệu ứng chuyển đổi 0.2 giây */
+      }
+
+      @keyframes float {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-5px); /* Phần tử lơ lửng lên khi đạt tới 50% của animation */
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+    
+    button:hover {
+        animation: float 1s ease-in-out infinite; /* Sử dụng animation float trong vòng 2 giây, lặp vô hạn */
+    }
+  
+      span{
+        color: red;
+        font-size: 12px;
+      }
+    }
+  }

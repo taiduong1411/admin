@@ -1,0 +1,92 @@
+.message{
+    display: flex;
+    justify-content: center;
+
+    .container{
+        width: 1200px;
+        margin: 50px;
+        .breadcrumbs{
+            font-weight: 500;
+            font-size: 20px;
+            color: #555;
+        }
+        .messages{
+            margin: 30px 0px;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 500px;
+            overflow: scroll;
+
+            .item{
+                display: flex;
+                gap: 20px;
+                max-width: 600px;
+                font-size: 18px;
+
+                &.owner{ //hiển thị tin nhắn của mình gửi
+                    flex-direction: row-reverse;
+                    align-self: flex-end; //tin nhắn của mình sẽ dc kéo sát sang bên phải container
+
+                    p{
+                        border-radius: 20px 0px 20px 20px;
+                        background-color: royalblue;
+                        color: white;
+                    }
+                }
+
+                img{
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+
+                p{
+                    padding: 20px;
+                    background-color: rgb(226, 226, 226);
+                    border-radius: 3px 20px 20px 20px;
+                    color: gray;
+                    font-weight: 300;
+                }
+            }
+        }
+
+        hr{
+            height: 0;
+            border: 0.5px solid rgb(235, 235, 235);
+            margin-bottom: 20px;
+        }
+        .write{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            textarea{
+                width: 80%;
+                height: 80px;
+                padding: 10px;
+                border: 1px solid lightgray;
+                border-radius: 20px;
+                font-size: 15px;
+            }
+
+            button{
+                background-color: #0007db;
+                padding: 20px;
+                color: white;
+                font-weight: 800;
+                font-size: 15px;
+                border: none;
+                border-radius: 50px;
+                cursor: pointer;
+                width: 150px;
+                transition: background-color 0.2s; /* Hiệu ứng mượt mà khi hover */
+            }
+            button:hover {
+                background-color: #011f4b; /* Màu nền khi hover */
+            }
+        }
+    }
+}
