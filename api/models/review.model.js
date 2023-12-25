@@ -1,0 +1,26 @@
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
+
+const ReviewSchema = new Schema({
+    gigId:{
+        type: String,
+        required: true,
+    },
+    userId:{
+        type: String,
+        required: true,
+    },
+    star:{
+        type: Number,
+        required: true,
+        enum:[1,2,3,4,5] //ng dùng chỉ có thể đánh giá tối đa 5 sao
+    },
+    desc:{
+        type: String,
+        required: true,
+    },
+},{
+    timestamps: true //để khi tạo user thì sẽ tạo và update theo tgian
+});
+
+export default mongoose.model("Review" , ReviewSchema)
