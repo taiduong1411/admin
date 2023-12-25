@@ -8,6 +8,7 @@ import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
+import AdminRoute from "./routers/adminRouter";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -16,9 +17,9 @@ function App() {
     <div className={darkMode ? "app dark" : "app"}>
       <BrowserRouter>
         <Routes>
-          <Route path="/">
+          <Route path="login" element={<Login />} />
+          <Route exact path="/" element={<AdminRoute />}>
             <Route index element={<Home />} />
-            <Route path="login" element={<Login />} />
             <Route path="users">
               <Route index element={<List />} />
               <Route path=":userId" element={<Single />} />

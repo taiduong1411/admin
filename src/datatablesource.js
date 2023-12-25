@@ -1,40 +1,42 @@
 export const userColumns = [
-  { field: "id", headerName: "ID", width: 70 },
+  { field: "_id", headerName: "ID", width: 70, key: '_id' },
+  // {
+  //   field: "user",
+  //   headerName: "User",
+  //   width: 230,
+  //   renderCell: (params) => {
+  //     return (
+  //       <div className="cellWithImg">
+  //         <img className="cellImg" src={params.row.img} alt="avatar" />
+  //         {params.row.username}
+  //       </div>
+  //     );
+  //   },
+  // },
   {
-    field: "user",
-    headerName: "User",
+    field: "username",
+    headerName: "Username",
     width: 230,
-    renderCell: (params) => {
-      return (
-        <div className="cellWithImg">
-          <img className="cellImg" src={params.row.img} alt="avatar" />
-          {params.row.username}
-        </div>
-      );
-    },
-  },
-  {
-    field: "email",
-    headerName: "Email",
-    width: 230,
+    key: 'username'
   },
 
   {
-    field: "age",
-    headerName: "Age",
+    field: "email",
+    headerName: "Email",
     width: 100,
+    key: 'email'
   },
   {
-    field: "status",
-    headerName: "Status",
+    field: "country",
+    headerName: "Country",
     width: 160,
-    renderCell: (params) => {
-      return (
-        <div className={`cellWithStatus ${params.row.status}`}>
-          {params.row.status}
-        </div>
-      );
-    },
+    // renderCell: (params) => {
+    //   return (
+    //     <div className={`cellWithStatus ${params.row.status}`}>
+    //       {params.row.status}
+    //     </div>
+    //   );
+    // },
   },
 ];
 
