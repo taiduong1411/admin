@@ -2,40 +2,40 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const OrderSchema = new Schema({
-    gigId:{
+    gigId: {
         type: String,
         required: true,
     },
-    img:{
+    img: {
         type: String,
         required: false,
     },
-    title:{
+    title: {
         type: String,
         required: true,
     },
-    price:{
+    price: {
         type: Number,
         required: true,
     },
-    sellerId:{
+    sellerId: {
         type: String,
         required: true,
     },
-    buyerId:{
+    buyerId: {
         type: String,
         required: true,
     },
-    isCompleted:{
+    isCompleted: {
         type: Boolean,
         default: false,
     },
-    payment_intent:{
+    payment_intent: {
         type: String,
         required: true,
     },
-},{
+}, {
     timestamps: true //để khi tạo user thì sẽ tạo và update theo tgian
 });
 
-export default mongoose.model("Order" , OrderSchema)
+export default mongoose.model("Order", OrderSchema)

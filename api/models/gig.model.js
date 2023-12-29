@@ -28,7 +28,7 @@ const GigSchema = new Schema({
     },
     cover: {
         type: String,
-        required: true,
+        required: false,
     },
     images: {
         type: [String], // [] là để chứa dc nhiều ảnh
