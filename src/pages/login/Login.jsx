@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { useNavigate, Link } from "react-router-dom";
 import { ApiClient } from "../../interceptors/axios";
 import { useState } from "react";
-// import '../login/login.scss'
+
 function Form(props) {
   localStorage.removeItem('isAdmin');
   localStorage.removeItem('accessToken');
@@ -11,14 +11,15 @@ function Form(props) {
   const [error, setError] = useState(null);
   const nav = useNavigate();
   const onSubmit = (data) => {
-    ApiClient().post('auth/login', data).then(res => {
+    ApiClient().post('admin/login', data).then(res => {
       // eslint-disable-next-line eqeqeq
       if (res.status == 200) {
         localStorage.setItem('isAdmin', true);
         localStorage.setItem('accessToken', res.data.accessToken);
         return nav('/')
       } else {
-        setError(res.data)
+        // console.log(res);
+        setError(res.data.msg)
       }
     })
   }
