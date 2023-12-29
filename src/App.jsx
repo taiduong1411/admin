@@ -16,7 +16,6 @@ import "./app.scss"
 import {
   QueryClient,
   QueryClientProvider,
-  useQuery,
 } from '@tanstack/react-query'
 import Pay from "./pages/pay/Pay";
 import Success from "./pages/success/Success";

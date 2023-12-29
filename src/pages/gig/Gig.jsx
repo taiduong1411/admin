@@ -53,9 +53,9 @@ function Gig() {
               <div className="user">
                 <img
                   className="pp"
-                 src={dataUser.img || "/images/noavatar.png"} 
-                 alt="" 
-              />
+                  src={dataUser.img || "/images/noavatar.png"}
+                  alt=""
+                />
 
                 <span>{dataUser.username}</span>
                 {!isNaN(data.totalStars / data.starNumber) && (
@@ -63,9 +63,9 @@ function Gig() {
                     {Array(Math.round(data.totalStars / data.starNumber))
                       .fill()
                       .map((item, i) => (
-                    <img src="\images\star.png" alt="" key={i} />
-                  ))}
-              <span>{Math.round(data.totalStars / data.starNumber)}</span>
+                        <img src="\images\star.png" alt="" key={i} />
+                      ))}
+                    <span>{Math.round(data.totalStars / data.starNumber)}</span>
                   </div>
                 )}
               </div>
@@ -85,20 +85,20 @@ function Gig() {
               <div className="seller">
                 <h2>Thông tin người bán</h2>
                 <div className="user">
-              <img 
-                src={dataUser.img || "\images\noavatar.png"} 
-                alt="" 
-              />
-              <div className="info">
+                  <img
+                    src={dataUser.img}
+                    alt=""
+                  />
+                  <div className="info">
                     <span>{dataUser.username}</span>
                     {!isNaN(data.totalStars / data.starNumber) && (
                       <div className="stars">
                         {Array(Math.round(data.totalStars / data.starNumber))
                           .fill()
                           .map((item, i) => (
-                  <img src="\images\star.png" alt="" key={i} />
-                  ))}
-                <span>
+                            <img src="\images\star.png" alt="" key={i} />
+                          ))}
+                        <span>
                           {Math.round(data.totalStars / data.starNumber)}
                         </span>
                       </div>
@@ -113,26 +113,26 @@ function Gig() {
                       <span className="desc">{dataUser.country}</span>
                     </div>
                     <div className="item">
-                  <span className="title">Tham gia từ</span>
-                  <span className="desc">10/2023</span>
-                </div>
-                <div className="item">
-                  <span className="title">Thời gian phản hồi</span>
-                  <span className="desc">4 tiếng</span>
-                </div>
-                <div className="item">
-                  <span className="title">Ngày cuối cùng tạo</span>
-                  <span className="desc">1 ngày</span>
-                </div>
-                <div className="item">
-                  <span className="title">Ngôn ngữ</span>
-                  <span className="desc">Tiếng Việt</span>
-                </div>
-              </div>
+                      <span className="title">Tham gia từ</span>
+                      <span className="desc">10/2023</span>
+                    </div>
+                    <div className="item">
+                      <span className="title">Thời gian phản hồi</span>
+                      <span className="desc">4 tiếng</span>
+                    </div>
+                    <div className="item">
+                      <span className="title">Ngày cuối cùng tạo</span>
+                      <span className="desc">1 ngày</span>
+                    </div>
+                    <div className="item">
+                      <span className="title">Ngôn ngữ</span>
+                      <span className="desc">Tiếng Việt</span>
+                    </div>
+                  </div>
 
-              <hr/>
+                  <hr />
 
-              <p>{dataUser.desc}</p>
+                  <p>{dataUser.desc}</p>
                 </div>
               </div>
             )}
@@ -146,27 +146,27 @@ function Gig() {
             <p>{data.shortDesc}</p>
             <div className="details">
               <div className="item">
-              <img src="\images\clock.png" alt="" />
-              <span>{data.deliveryDate} Ngày giao dịch</span>
-            </div>
-            <div className="item">
-              <img src="\images\recycle.png" alt="" />
-              <span>{data.revisionNumber} Lần xem xét</span>
-            </div>
-          </div>
-          <div className="features">
-            {data.features.map(feature=>(
-              <div className="item" key={feature}>
-                <img src="\images\greencheck.png" alt="" />
-                <span>{feature}</span>
+                <img src="\images\clock.png" alt="" />
+                <span>{data.deliveryDate} Ngày giao dịch</span>
               </div>
-            ))}
+              <div className="item">
+                <img src="\images\recycle.png" alt="" />
+                <span>{data.revisionNumber} Lần xem xét</span>
+              </div>
+            </div>
+            <div className="features">
+              {data.features.map(feature => (
+                <div className="item" key={feature}>
+                  <img src="\images\greencheck.png" alt="" />
+                  <span>{feature}</span>
+                </div>
+              ))}
+            </div>
+            <Link to={`/pay/${id}`}>
+              <button>Tiếp tục giao dịch</button>
+            </Link>
           </div>
-          <Link to={`/pay/${id}`}>
-          <button>Tiếp tục giao dịch</button>
-          </Link>
         </div>
-      </div>
       )}
     </div>
   );

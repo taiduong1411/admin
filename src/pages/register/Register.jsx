@@ -18,7 +18,6 @@ function Register() {
 
   const navigate = useNavigate();
 
-  console.log(user)
 
   const handleChange = (e) => { //Khi người dùng nhập hoặc thay đổi giá trị trong một trường dữ liệu, hàm handleChange được gọi và cập nhật trạng thái user với giá trị mới cho trường dữ liệu cụ thể mà họ đã tương tác.
     setUser((prev) => { //để cập nhật biến trạng thái user
@@ -34,10 +33,10 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(user);
     const url = await upload(file);
     try {
-      await newRequest.post("auth/register", {
+      await newRequest.post("/auth/register", {
         ...user,
         img: url,
       });

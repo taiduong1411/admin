@@ -6,23 +6,23 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import { useNavigate } from "react-router-dom";
 
-const add = () => { 
+const add = () => {
   const [singleFile, setSingleFile] = useState(undefined);
   const [files, setFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
 
   const [state, dispatch] = useReducer(gigReducer, INITIAL_STATE);
 
-  const handleChange = (e) =>{
+  const handleChange = (e) => {
     dispatch({
-      type:"CHANGE_INPUT", 
-      payload:{name: e.target.name, value: e.target.value},
+      type: "CHANGE_INPUT",
+      payload: { name: e.target.name, value: e.target.value },
     });
   };
-  const handleFeature = (e) =>{
+  const handleFeature = (e) => {
     e.preventDefault(); //ngăn ko cho refresh lại page
     dispatch({
-      type:"ADD_FEATURE", 
+      type: "ADD_FEATURE",
       payload: e.target[0].value,
     });
     e.target[0].value = "";
@@ -52,14 +52,14 @@ const add = () => {
 
   const mutation = useMutation({
     mutationFn: (gig) => {
-      return newRequest.post("/gigs", gig);
+      return newRequest.post("/gigs/create-gig", gig);
     },
-    onSuccess:()=>{
+    onSuccess: () => {
       queryClient.invalidateQueries(["myGigs"])
     }
   });
 
-  const handleSubmit = (e)=>{ //để khi bấm vào thêm sản phẩm thì các data sẽ bắn lên trên database
+  const handleSubmit = (e) => { //để khi bấm vào thêm sản phẩm thì các data sẽ bắn lên trên database
     e.preventDefault();
     mutation.mutate(state);
     navigate("/mygigs") //sau khi thêm sẽ điều hướng về trang sản phẩm của tôi
@@ -72,20 +72,20 @@ const add = () => {
         <div className="sections">
           <div className="left">
             <label htmlFor="">Tiêu đề</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               name="title"
-              placeholder="Tôi sẽ làm điều gì đó thật tốt" 
+              placeholder="Tôi sẽ làm điều gì đó thật tốt"
               onChange={handleChange}
-            /> 
+            />
             <label htmlFor="">Hạng mục</label>
             <select name="cat" id="cat" onChange={handleChange}>
               <option value="null">Hãy chọn một mục Category</option>
               <option value="2dgraphic">Đồ họa 2D</option>
-              <option value="3dgraphic">Đồ họa 3D</option> 
-              <option value="photography">Photography</option> 
+              <option value="3dgraphic">Đồ họa 3D</option>
+              <option value="photography">Photography</option>
               <option value="UXUI">UX/UI graphic</option>
-            </select> 
+            </select>
 
             <div className="images">
               <div className="imagesInputs">
@@ -107,11 +107,11 @@ const add = () => {
             </div>
 
             <label htmlFor="">Mô tả</label>
-            <textarea 
-              name="desc" 
-              id="" 
-              cols="30" 
-              rows="16" 
+            <textarea
+              name="desc"
+              id=""
+              cols="30"
+              rows="16"
               placeholder="Tôi sẽ làm điều gì đó thật tốt"
               onChange={handleChange}
             ></textarea>
@@ -121,12 +121,12 @@ const add = () => {
             <label htmlFor="">Tiêu đề dịch vụ</label>
             <input type="text" name="shortTitle" placeholder="Ví dụ: Một sản phẩm đồ họa" onChange={handleChange} />
             <label htmlFor="">Mô tả rút gọn</label>
-            <textarea 
-              name="shortDesc" 
+            <textarea
+              name="shortDesc"
               onChange={handleChange}
-              id="" 
-              cols="30" 
-              rows="10" 
+              id=""
+              cols="30"
+              rows="10"
               placeholder="Một mô tả ngắn cho sản phẩm"
             ></textarea>
             <label htmlFor="">Thời gian giao dịch (e.g 3 ngày)</label>
@@ -135,20 +135,20 @@ const add = () => {
             <input type="number" name="revisionNumber" onChange={handleChange} />
             <label htmlFor="">Thêm mục</label>
             <form action="" className="add" onSubmit={handleFeature}>
-            <input type="text" placeholder="Ví dụ: Đồ họa 2D"/>
-            <button type="submit">Thêm</button>
-            </form> 
+              <input type="text" placeholder="Ví dụ: Đồ họa 2D" />
+              <button type="submit">Thêm</button>
+            </form>
             <div className="addedFeatures">
-              {state?.features?.map(f=>(
-              <div className="item" key={f}> 
-                <button onClick={() =>
-                  dispatch({type:"REMOVE_FEATURE",payload: f })
+              {state?.features?.map(f => (
+                <div className="item" key={f}>
+                  <button onClick={() =>
+                    dispatch({ type: "REMOVE_FEATURE", payload: f })
                   }
-                >
-                  {f}
-                  <span>X</span> 
-                </button>
-              </div>
+                  >
+                    {f}
+                    <span>X</span>
+                  </button>
+                </div>
               ))}
             </div>
             <label htmlFor="">Giá tiền</label>
