@@ -3,6 +3,7 @@ import React from "react";
 import newRequest from "../../utils/newRequest";
 import Review from "../review/Review";
 import "./Reviews.scss";
+import { ApiClient } from "../../utils/axios";
 const Reviews = ({ gigId }) => {
 
   const queryClient = useQueryClient()
@@ -16,9 +17,9 @@ const Reviews = ({ gigId }) => {
 
   const mutation = useMutation({
     mutationFn: (review) => {
-      return newRequest.post("/reviews", review);
+      return ApiClient().post("/reviews", review);
     },
-    onSuccess:()=>{
+    onSuccess: () => {
       queryClient.invalidateQueries(["reviews"])
     }
   });
@@ -36,8 +37,8 @@ const Reviews = ({ gigId }) => {
       {isLoading
         ? "loading"
         : error
-        ? "Có gì đó không ổn"
-        : data.map((review) => <Review key={review._id} review={review} />)}
+          ? "Có gì đó không ổn"
+          : data.map((review) => <Review key={review._id} review={review} />)}
       <div className="add">
         <h3>Thêm bình luận</h3>
         <form action="" className="addForm" onSubmit={handleSubmit}>

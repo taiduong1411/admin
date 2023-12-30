@@ -15,7 +15,8 @@ function Login() {
     try {
       await newRequest.post("auth/login", { username, password }).then(res => {
         if (res.status == 200) {
-          localStorage.setItem("currentUser", JSON.stringify(res.data));
+          localStorage.setItem("currentUser", JSON.stringify(res.data.info));
+          localStorage.setItem('accessToken', res.data.token);
           return navigate("/") //login xong sẽ điều hướng sang trang chủ
           //localStorage.setItem("currentUser", JSON.stringify(res.data)); lưu trữ dữ liệu từ res.data dưới dạng chuỗi JSON dưới khóa "currentUser" trong localStorage. Điều này cho phép bạn lưu trữ thông tin về người dùng hoặc bất kỳ dữ liệu nào mà bạn muốn giữ lại trong trình duyệt và có thể truy cập sau này.
         } else {

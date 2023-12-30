@@ -1,7 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import newRequest from "../../utils/newRequest";
+// import newRequest from "../../utils/newRequest";
+import { ApiClient } from "../../utils/axios";
 import "./Message.scss";
 
 const Message = () => {
@@ -13,14 +14,14 @@ const Message = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["messages"],
     queryFn: () =>
-      newRequest.get(`/messages/${id}`).then((res) => {
+      ApiClient().get(`/messages/${id}`).then((res) => {
         return res.data;
       }),
   });
 
   const mutation = useMutation({
     mutationFn: (message) => {
-      return newRequest.post(`/messages`, message);
+      return ApiClient().post(`/messages`, message);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["messages"]);
@@ -49,7 +50,7 @@ const Message = () => {
         ) : (
           <div className="messages">
             {data.map((m) => ( // đoạn dưới là để xác định tin nhắn nào là của mình gửi
-              <div className={m.userId === currentUser._id ? "owner item" : "item"} key={m._id}> 
+              <div className={m.userId === currentUser._id ? "owner item" : "item"} key={m._id}>
                 <img
                   src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
                   alt=""

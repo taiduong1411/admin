@@ -15,8 +15,8 @@ export const ApiClient = () => {
     // Add a request interceptor to add the JWT token to the authorization header
     api.interceptors.request.use(
         (config) => {
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            const token = currentUser._id;
+            // const currentUser = JSON.parse(localStorage.getItem('accessToken'));
+            const token = localStorage.getItem('accessToken');
             if (token) {
                 config.headers.Authorization = token;
             }

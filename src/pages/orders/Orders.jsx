@@ -2,12 +2,12 @@ import React from 'react'
 import "./Orders.scss"
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from "@tanstack/react-query";
-import newRequest from "../../utils/newRequest";
+// import newRequest from "../../utils/newRequest";
 import { ApiClient } from '../../utils/axios';
 const Orders = () => {
 
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["orders"],
@@ -17,7 +17,7 @@ const Orders = () => {
           `/orders`
         )
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           return res.data;
         }),
   });
@@ -25,19 +25,22 @@ const Orders = () => {
   const handleContact = async (order) => { //xử lý việc tìm kiếm hoặc tạo một cuộc trò chuyện giữa người mua và người bán dựa trên thông tin từ đơn hàng được truyền vào.
     const sellerId = order.sellerId;
     const buyerId = order.buyerId;
-    const id = sellerId + buyerId;
-    try {
-
-      const res = await newRequest.get(`/conversations/single/${id}`)
-      navigate(`/message/${res.data.id}`);
-    } catch (err) {
-      if (err.response.status === 404) {
-        const res = await newRequest.post(`/conversations/`, {
-          to: currentUser.seller ? buyerId : sellerId,
+    const id = sellerId + buyerId
+    // console.log(sellerId, buyerId);
+    // console.log(id);
+    await ApiClient().get(`/conversations/single/${id}`).then(async res => {
+      // console.log(res.data.conversation);
+      if (res.status == 200) {
+        return navigate(`/message/${res.data.conversation.id}`);
+      } else {
+        // console.log('123');
+        const res = await ApiClient().post(`/conversations/`, {
+          to: currentUser.isSeller ? buyerId : sellerId,
         });
-        navigate(`/message/${res.data.id}`);
+        console.log(res);
+        return navigate(`/message/${res.data.savedConversation.id}`);
       }
-    }
+    })
   };
 
   return (
