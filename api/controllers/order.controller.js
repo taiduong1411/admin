@@ -1,8 +1,9 @@
 import createError from "../utils/createError.js";
 import Order from "../models/order.model.js";
 import Gig from "../models/gig.model.js";
+import Users from "../models/user.model.js";
 import Stripe from "stripe";
-
+import { jwtDecode } from 'jwt-decode';
 export const intent = async (req, res, next) => {
   const stripe = new Stripe(
     process.env.STRIPE
@@ -36,14 +37,15 @@ export const intent = async (req, res, next) => {
 };
 
 export const getOrders = async (req, res, next) => {
-  const _id = req.headers['authorization'];
+  const token = req.headers['authorization'];
+  const token_decode = jwtDecode(token);
+  const user = await Users.findOne({ _id: token_decode.id })
   try {
     const orders = await Order.find({
-      ...(req.isSeller ? { sellerId: _id } : { buyerId: _id }),
+      ...(user.isSeller ? { sellerId: user_id } : { buyerId: user._id }),
       isCompleted: true,
     });
-    console.log(orders);
-    res.status(200).json({ orders: orders });
+    return res.status(200).json({ orders: orders });
   } catch (err) {
     next(err)
   }

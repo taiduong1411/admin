@@ -46,7 +46,7 @@ export const getAllUsers = async (req, res, next) => {
 };
 export const CreateUser = async (req, res, next) => {
     try {
-        const { username, email, password, phone, country, desc, img } = req.body;
+        const { username, email, password, phone, country, desc, img, isSeller } = req.body;
         const hash = bcrypt.hashSync(password, 5); //chỗ này là để ko hiện mk tài khoản trong mongodb
         await User.findOne({ username: username }).then(async user => {
             if (!user) {
@@ -57,7 +57,8 @@ export const CreateUser = async (req, res, next) => {
                     phone: phone,
                     country: country,
                     desc: desc,
-                    img: img
+                    img: img,
+                    isSeller: isSeller
                 }
                 await User(data).save();
                 return res.status(200).json({ success: true, msg: "Thêm Thành Công" })
@@ -90,7 +91,8 @@ export const updateUser = async (req, res, next) => {
             country: req.body.country,
             desc: req.body.desc,
             password: hash ? hash : "",
-            img: req.body.img
+            img: req.body.img,
+            isSeller: req.body.isSeller
         }
         const _id = req.params._id;
         await User.findOne({ _id: _id }).then(async user => {
@@ -119,8 +121,9 @@ export const createGig = async (req, res, next) => {
     try {
         const token = req.headers['authorization'];
         const token_decode = jwtDecode(token);
+        console.log(req.body);
         const newGig = {
-            userId: token_decode.id,
+            userId: req.body.sellerId,
             ...req.body
         }
         const saveGig = await Gigs(newGig).save();
@@ -153,9 +156,23 @@ export const getProduct = async (req, res, next) => {
 };
 export const updateProduct = async (req, res, next) => {
     const _id = req.params._id;
-    // console.log(req.body);
+    const data = {
+        title: req.body.title,
+        shortTitle: req.body.shortTitle,
+        shortDesc: req.body.shortDesc,
+        cover: req.body.cover,
+        images: req.body.images,
+        price: req.body.price,
+        deliveryTime: req.body.deliveryTime,
+        revisionNumber: req.body.revisionNumber,
+        cat: req.body.cat,
+        desc: req.body.desc,
+        feature: req.body.feature,
+        userId: req.body.sellerId
+    }
+    // console.log(data);
     try {
-        await Gigs.findByIdAndUpdate(_id, req.body).then(gig => {
+        await Gigs.findByIdAndUpdate(_id, data).then(gig => {
             return res.status(200).json({ success: true, msg: 'Cập Nhật Thành Công' })
         })
     } catch (error) {
@@ -203,3 +220,13 @@ export const updateOrders = async (req, res, next) => {
         return res.status(500).json({ msg: 'Server Error' })
     }
 };
+export const getAllSellers = async (req, res, next) => {
+    try {
+        await User.find({ isSeller: true }).then(sellers => {
+            if (!sellers) return res.status(404).json({ msg: "Khong co seller dang ton tai" })
+            return res.status(200).json({ sellers })
+        })
+    } catch (error) {
+        return res.status(500).json({ msg: "Loi server" })
+    }
+}

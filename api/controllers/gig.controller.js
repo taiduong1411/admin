@@ -9,7 +9,7 @@ export const createGig = async (req, res, next) => { //chức năng tạo gig m�
   });
   try {
     const saveGig = await newGig.save();
-    res.status(201).json(saveGig);
+    return res.status(201).json(saveGig);
   } catch (err) {
     next(err);
   }

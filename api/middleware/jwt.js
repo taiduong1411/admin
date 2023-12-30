@@ -2,8 +2,8 @@ import jwt from "jsonwebtoken";
 import createError from "../utils/createError.js";
 
 export const verifyToken = (req, res, next) => { //để xác minh tính hợp lệ của một token JWT (JSON Web Token) từ một cookie có tên "accessToken" trong yêu cầu HTTP
-    const token = req.headers.accessToken;
-    console.log(token);
+    const token = req.cookie.accessToken;
+    console.log(token, 'abcccc');
     if (!token)
         return next(createError(401, "Bạn chưa đăng kí!"));
 

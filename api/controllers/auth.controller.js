@@ -34,12 +34,11 @@ export const login = async (req, res, next) => {
         );
         const { password, ...info } = user._doc; //_doc là cách để lấy toàn bộ thông tin về người dùng, và sau đó bạn tạo một bản sao của nó (biến info) mà không bao gồm trường password. Điều này giúp bạn gửi thông tin người dùng cho họ mà không tiết lộ mật khẩu.
         return res
-            .cookie("accessToken", token, {
-                HttpOnly: false,
-            })
+            // .cookie("accessToken", token, {
+            //     HttpOnly: true,
+            // })
             .status(200)
-            .send(info)
-
+            .json({ info: info, token: token })
     } catch (err) {
         next(err);
     }
