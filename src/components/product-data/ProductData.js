@@ -52,6 +52,11 @@ const ProductData = () => {
             key: 'price'
         },
         {
+            title: 'Nguoi Tao',
+            dataIndex: 'userId',
+            key: 'userId'
+        },
+        {
             title: 'Action',
             key: 'Action',
             render: (record) => (
@@ -134,6 +139,7 @@ const ProductData = () => {
     const [pID, setPID] = useState();
     const inputRef = useRef(null);
     const [features, setFeatures] = useState([]);
+    const [dataSellers, setDataSellers] = useState([]);
     const addFeature = (e) => {
         const value = inputRef.current.value;
         if (value.length < 1) return
@@ -171,6 +177,11 @@ const ProductData = () => {
         setOpenUpdate(true);
         const data_id = event.currentTarget.dataset.id;
         setPID(data_id);
+        await ApiClient().get('admin/all-sellers').then(res => {
+            // console.log(res.data.sellers);
+            setDataSellers(res.data.sellers)
+        })
+
         await ApiClient().get(`admin/product/${data_id}`).then(res => {
             if (res.status == 200) {
                 setProData(res.data.data);
@@ -191,7 +202,8 @@ const ProductData = () => {
             revisionNumber: data.revisionNumber ? data.revisionNumber : proData.revisionNumber,
             cat: data.cat ? data.cat : proData.cat,
             desc: data.desc ? data.desc : proData.desc,
-            features: data.features ? data.addFeature : features
+            features: data.features ? data.addFeature : features,
+            sellerId: data.sellerId
         }
         await ApiClient().post(`admin/update-gig/${proData._id}`, allData).then(res => {
             if (res.status == 200) {
@@ -263,6 +275,15 @@ const ProductData = () => {
                                 <option value="3dgraphic">Đồ họa 3D</option>
                                 <option value="photography">Photography</option>
                                 <option value="UXUI">UX/UI graphic</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="sellerID" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Seller So Huu</label>
+                            <select name="cat" {...register('sellerId')} id="sellerId">
+                                <option value="null">Hãy chọn một mục</option>
+                                {dataSellers.map((dataSeller) => (
+                                    <option value={dataSeller._id}>{dataSeller.username}</option>
+                                ))}
                             </select>
                         </div>
                         <div>

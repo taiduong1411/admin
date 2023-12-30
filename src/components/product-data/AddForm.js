@@ -1,9 +1,19 @@
 import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
 import { ApiClient } from '../../interceptors/axios';
 // import DataAlert from '../alert/DataAlert';
 import { useState, useRef } from 'react';
 import upload from '../../interceptors/upload';
 const AddForm = ({ addProps }) => {
+    const [dataSellers, setDataSellers] = useState([]);
+    useEffect(() => {
+        getData();
+    }, []);
+    const getData = async () => {
+        await ApiClient().get('admin/all-sellers').then(res => {
+            setDataSellers(res.data.sellers)
+        })
+    }
     const { register, handleSubmit } = useForm();
     const [singleFile, setSingleFile] = useState(undefined);
     const [files, setFiles] = useState([]);
@@ -29,9 +39,9 @@ const AddForm = ({ addProps }) => {
             ...data,
             cover: urlCover,
             images: urlImages,
-            features: features
+            features: features,
         }
-
+        // console.log(allData);
         await ApiClient().post('admin/create-gig', allData).then(res => {
             if (res.status == 200) {
                 addProps({ status: res.status, msg: res.data.msg });
@@ -76,6 +86,15 @@ const AddForm = ({ addProps }) => {
                         <option value="3dgraphic">Đồ họa 3D</option>
                         <option value="photography">Photography</option>
                         <option value="UXUI">UX/UI graphic</option>
+                    </select>
+                </div>
+                <div>
+                    <label htmlFor="sellerID" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Seller So Huu</label>
+                    <select name="cat" {...register('sellerId')} id="sellerId">
+                        <option value="null">Hãy chọn một mục</option>
+                        {dataSellers.map((dataSeller) => (
+                            <option value={dataSeller._id}>{dataSeller.username}</option>
+                        ))}
                     </select>
                 </div>
                 <div>

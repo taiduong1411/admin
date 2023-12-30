@@ -111,9 +111,16 @@ const Datatable = () => {
     try {
       const url = await upload(singleFile);
       const allData = {
-        ...data,
+        username: data['username'],
+        email: data['email'],
+        phone: data['phone'],
+        password: data['password'],
+        isSeller: data['level'] == 'isSeller' ? true : false,
+        desc: data['desc'],
+        country: data['country'],
         img: url
       }
+      // console.log(allData);
       await ApiClient().post('admin/create-user', allData).then(res => {
         if (res.status == 200) {
           handleAddCancel();
@@ -179,8 +186,14 @@ const Datatable = () => {
     try {
       const url = await upload(singleFile);
       const allData = {
+        username: data['username'],
+        email: data['email'],
+        phone: data['phone'],
+        password: data['password'],
+        isSeller: data['level'] == 'isSeller' ? true : false,
+        desc: data['desc'],
+        country: data['country'],
         img: url ? url : dataUser.img,
-        ...data
       }
       // console.log(allData);
       await ApiClient().post(`admin/update-user/${userId}`, allData).then(res => {
@@ -231,6 +244,14 @@ const Datatable = () => {
             <input type="password" {...register("password")} name="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:focus:ring-blue-500 dark:focus:border-blue-500" required={true} />
           </div>
           <div>
+            <label htmlFor="level" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Phân Quyền</label>
+            <select name="cat" {...register('level')} id="level">
+              <option value="null">Hãy chọn một mục</option>
+              <option value="isSeller">Người Bán</option>
+              <option value="isBuyer">Người Mua</option>
+            </select>
+          </div>
+          <div>
             <label htmlFor="country" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Country</label>
             <input {...register('country')} type="text" id="country" name="country" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:focus:ring-blue-500 dark:focus:border-blue-500" required={true} />
           </div>
@@ -276,6 +297,15 @@ const Datatable = () => {
             <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Password</label>
             <input type="password" {...register("password")} name="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:focus:ring-blue-500 dark:focus:border-blue-500" required={true} />
           </div>
+          <div>
+            <label htmlFor="level" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Phân Quyền</label>
+            <select name="cat" {...register('level')} id="level">
+              <option value="null">Hãy chọn một mục</option>
+              <option value="isSeller">Người Bán</option>
+              <option value="isBuyer">Người Mua</option>
+            </select>
+          </div>
+
           <div>
             <label htmlFor="country" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Country</label>
             <input {...register('country')} type="text" defaultValue={dataUser.country} id="country" name="country" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:focus:ring-blue-500 dark:focus:border-blue-500" required={true} />
