@@ -168,31 +168,32 @@ const Datatable = () => {
   const [dataUser, setDataUser] = useState([]);
   const [userId, setUserId] = useState();
   const showModalUpdate = async (event) => {
+    setOpenUpdate(true);
     const data_id = event.currentTarget.dataset.id;
     setUserId(data_id)
     await ApiClient().get(`admin/get-user/${data_id}`).then(res => {
       if (res.status == 200) {
         setDataUser(res.data.user);
-        setOpenUpdate(true);
       } else {
         setOpenUpdate(false);
       }
     })
   }
-  const handleUpdateCancel = () => {
+  const handleUpdateCancel = async () => {
+    setDataUser([]);
     setOpenUpdate(false);
   }
   const onUpdateSubmit = async (data) => {
     try {
       const url = await upload(singleFile);
       const allData = {
-        username: data['username'],
-        email: data['email'],
-        phone: data['phone'],
-        password: data['password'],
+        username: data['username'] ? data['username'] : dataUser.username,
+        email: data['email'] ? data['email'] : dataUser.email,
+        phone: data['phone'] ? data['phone'] : dataUser.phone,
+        password: data['password'] ? data['password'] : dataUser.password,
         isSeller: data['level'] == 'isSeller' ? true : false,
-        desc: data['desc'],
-        country: data['country'],
+        desc: data['desc'] ? data['desc'] : dataUser.desc,
+        country: data['country'] ? data['country'] : dataUser.country,
         img: url ? url : dataUser.img,
       }
       // console.log(allData);
@@ -213,7 +214,7 @@ const Datatable = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New User
+        Người dùng
         <Button
           className="link"
           onClick={showModal}

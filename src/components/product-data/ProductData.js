@@ -52,9 +52,9 @@ const ProductData = () => {
             key: 'price'
         },
         {
-            title: 'Nguoi Tao',
-            dataIndex: 'userId',
-            key: 'userId'
+            title: 'Owner',
+            dataIndex: 'username',
+            key: 'username'
         },
         {
             title: 'Action',
@@ -89,11 +89,12 @@ const ProductData = () => {
     const getData = async () => {
         await ApiClient().get('admin/all-products').then(res => {
             if (res.status == 200) {
-                setData(res.data.gigs)
+                setData(res.data.allData)
             } else {
                 console.log('error');
             }
         })
+
     }
     // HANDLE ADD MODAL
     const [openAdd, setOpenAdd] = useState(false);
@@ -140,6 +141,8 @@ const ProductData = () => {
     const inputRef = useRef(null);
     const [features, setFeatures] = useState([]);
     const [dataSellers, setDataSellers] = useState([]);
+    const [dataCat, setDataCat] = useState();
+    const [dataIdSeller, setDataIdSeller] = useState();
     const addFeature = (e) => {
         const value = inputRef.current.value;
         if (value.length < 1) return
@@ -179,12 +182,13 @@ const ProductData = () => {
         setPID(data_id);
         await ApiClient().get('admin/all-sellers').then(res => {
             // console.log(res.data.sellers);
-            setDataSellers(res.data.sellers)
+            setDataSellers(res.data.sellers);
         })
-
         await ApiClient().get(`admin/product/${data_id}`).then(res => {
             if (res.status == 200) {
                 setProData(res.data.data);
+                setDataCat(res.data.data.cat);
+                setDataIdSeller(res.data.data.userId);
             } else {
                 error(res.data.msg);
             }
@@ -203,7 +207,7 @@ const ProductData = () => {
             cat: data.cat ? data.cat : proData.cat,
             desc: data.desc ? data.desc : proData.desc,
             features: data.features ? data.addFeature : features,
-            sellerId: data.sellerId
+            sellerId: data.sellerId ? data.sellerId : proData.userId
         }
         await ApiClient().post(`admin/update-gig/${proData._id}`, allData).then(res => {
             if (res.status == 200) {
@@ -221,7 +225,8 @@ const ProductData = () => {
             <div className="alert alert-info">
                 {contextHolder}
             </div>
-            <div style={{ margin: '10px 0 50px 0', float: 'right' }}>
+            <div style={{ margin: '20px 20px 20px 0', float: 'right' }}>
+                <span style={{ marginRight: '1110px', fontSize: '40px', fontWeight: 'bold' }}>Sản phẩm</span>
                 <Button
                     style={{ background: 'green', color: 'white' }}
                     onClick={showAddModal}
@@ -269,7 +274,7 @@ const ProductData = () => {
                         </div>
                         <div>
                             <label htmlFor="cat" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hạng Mục</label>
-                            <select name="cat" {...register('cat')} id="cat" defaultValue={proData.cat}>
+                            <select name="cat" {...register('cat')} id="cat" value={dataCat} onChange={(e) => setDataCat(e.target.value)}>
                                 <option value="null">Hãy chọn một mục Category</option>
                                 <option value="2dgraphic">Đồ họa 2D</option>
                                 <option value="3dgraphic">Đồ họa 3D</option>
@@ -279,7 +284,7 @@ const ProductData = () => {
                         </div>
                         <div>
                             <label htmlFor="sellerID" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Seller So Huu</label>
-                            <select name="cat" {...register('sellerId')} id="sellerId">
+                            <select name="cat" {...register('sellerId')} id="sellerId" value={dataIdSeller} onChange={(e) => setDataIdSeller(e.target.value)}>
                                 <option value="null">Hãy chọn một mục</option>
                                 {dataSellers.map((dataSeller) => (
                                     <option value={dataSeller._id}>{dataSeller.username}</option>

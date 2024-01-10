@@ -16,7 +16,7 @@ function Form(props) {
       if (res.status == 200) {
         localStorage.setItem('isAdmin', true);
         localStorage.setItem('accessToken', res.data.accessToken);
-        return nav('/')
+        return nav('/users') //login điều hướng về trang quản lí user luôn
       } else {
         // console.log(res);
         setError(res.data.msg)
